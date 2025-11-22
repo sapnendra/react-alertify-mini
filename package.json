@@ -1,7 +1,7 @@
 {
   "name": "react-alertify-mini",
   "version": "1.0.0",
-  "description": "A lightweight React alert/notification library with success, error, and warning alerts that appear on the top-right and auto-dismiss after 2 seconds.",
+  "description": "A lightweight React alert/notification library with success, error, and warning alerts that appear instantly on the top-right and auto-dismiss after 2 seconds.",
   "main": "src/index.js",
   "module": "src/index.js",
   "types": "src/index.d.ts",

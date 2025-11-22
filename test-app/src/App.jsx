@@ -19,7 +19,7 @@ function App() {
 
   const handleCustomMessage = () => {
     if (inputValue.trim()) {
-      alert.success(`Custom message: ${inputValue}`)
+      alert.success(`${inputValue}`)
       setInputValue('')
     } else {
       alert.warning('Please enter a message first!')

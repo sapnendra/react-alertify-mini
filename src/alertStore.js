@@ -1,20 +1,32 @@
 let listeners = [];
 let alerts = [];
 
-export const addAlert = (type, message) => {
-  const id = Date.now();
-  alerts.push({ id, type, message });
+let alertCounter = 0;
 
-  listeners.forEach((l) => l(alerts));
+export const addAlert = (type, message, duration = 2000) => {
+  // Capture timestamp once to ensure consistency
+  const now = Date.now();
+  // Use counter + timestamp for unique IDs to ensure FIFO behavior
+  const id = `${now}-${++alertCounter}`;
+  // Store creation time for FIFO calculation - all alerts use same timestamp source
+  const alert = { id, type, message, duration, createdAt: now };
+  
+  // Add immediately for instant feedback
+  alerts.push(alert);
+  // Notify all listeners synchronously for immediate UI update
+  listeners.forEach((l) => l([...alerts]));
+};
 
-  setTimeout(() => {
-    alerts = alerts.filter((a) => a.id !== id);
-    listeners.forEach((l) => l(alerts));
-  }, 2000); // remove after 2 seconds
+export const removeAlert = (id) => {
+  alerts = alerts.filter((a) => a.id !== id);
+  // Notify all listeners about the updated alerts array
+  listeners.forEach((l) => l([...alerts]));
 };
 
 export const onAlertChange = (listener) => {
   listeners.push(listener);
+  // Immediately notify with current alerts
+  listener([...alerts]);
   return () => {
     listeners = listeners.filter((l) => l !== listener);
   };

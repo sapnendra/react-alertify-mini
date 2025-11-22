@@ -8,11 +8,13 @@ A lightweight, zero-dependency React notification/alert library with a simple AP
 
 - 🎯 **Simple API**: `alert.success()`, `alert.error()`, `alert.warning()`
 - ⏱️ **Auto-dismiss**: Alerts automatically disappear after 2 seconds
+- ⚡ **Instant appearance**: Alerts appear immediately with optimized timing
 - 🌐 **Global alerts**: Works anywhere in your app after setup
 - 🪶 **Lightweight**: No external dependencies (only React)
 - 📦 **TypeScript support**: Includes TypeScript definitions
-- 🎨 **Clean design**: Modern, minimal UI with smooth animations
+- 🎨 **Clean design**: Modern, minimal UI with smooth slide-in/out animations
 - 🔧 **Easy integration**: Just add one component to your root
+- 🔄 **FIFO removal**: Alerts remove one by one in first-in-first-out order
 
 ---
 
@@ -218,13 +220,16 @@ import { AlertContainer } from "react-alertify-mini";
 ## 🎨 Alert Appearance
 
 - **Position**: Top-right corner of the screen
-- **Auto-dismiss**: 2 seconds after appearing
+- **Auto-dismiss**: 2 seconds after appearing (configurable)
+- **Progress bar**: Visual countdown bar at the bottom of each alert
+- **Animations**: Smooth slide-in from right and fade-out transitions
 - **Colors**:
   - ✅ Success: Green (`#4caf50`)
   - ❌ Error: Red (`#f44336`)
   - ⚠️ Warning: Orange (`#ff9800`)
 - **Styling**: White text, rounded corners, subtle shadow
 - **Stacking**: Multiple alerts stack vertically with spacing
+- **Removal**: Alerts remove independently in FIFO (first-in-first-out) order
 
 ---
 
@@ -293,8 +298,11 @@ MIT License © 2025 Sapnendra Jaiswal
 
 - Only add `<AlertContainer />` once at your app root
 - Alerts automatically stack if multiple are triggered quickly
-- Each alert has a unique ID and manages its own lifecycle
+- Each alert has a unique ID and manages its own lifecycle independently
+- The progress bar provides visual feedback on remaining time
+- Alerts appear instantly when triggered for optimal user experience
 - The alert container is positioned with `z-index: 9999` to appear above most content
+- Alerts remove themselves one by one in the order they were created (FIFO)
 
 ---
 
