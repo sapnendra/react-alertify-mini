@@ -11,8 +11,6 @@ const DEFAULT_DURATION = 2000;
 
 const AlertItem = ({ alert, onRemove }) => {
   const duration = alert.duration || DEFAULT_DURATION;
-  // Use creation time for FIFO - calculate elapsed time from when alert was created
-  // This ensures alerts expire in the order they were added
   const createdAt = alert.createdAt || Date.now();
   const initialElapsed = Date.now() - createdAt;
   const initialProgress = Math.max(0, Math.min(100, 100 - (initialElapsed / duration) * 100));
@@ -25,11 +23,8 @@ const AlertItem = ({ alert, onRemove }) => {
   const isRemovingRef = useRef(false);
 
   useEffect(() => {
-    // Trigger immediate visibility with animation for instant feedback
     setIsVisible(true);
 
-    // Use creation time for FIFO - calculate elapsed time from when alert was created
-    // This ensures alerts expire in the order they were added
     startTimeRef.current = createdAt;
 
     const updateProgress = () => {
@@ -43,18 +38,13 @@ const AlertItem = ({ alert, onRemove }) => {
       if (remaining > 0) {
         animationFrameRef.current = requestAnimationFrame(updateProgress);
       } else {
-        // Mark as removing to prevent multiple calls
         isRemovingRef.current = true;
-        // Start exit animation
         setIsVisible(false);
-        // Wait for exit animation before removing from store
         timeoutRef.current = setTimeout(() => {
           onRemove(alert.id);
         }, 300);
       }
     };
-
-    // Start progress animation immediately
     animationFrameRef.current = requestAnimationFrame(updateProgress);
 
     return () => {
@@ -100,7 +90,6 @@ const AlertContainer = () => {
   }, []);
 
   const handleRemove = (id) => {
-    // Remove from store's array and notify all listeners
     removeAlert(id);
   };
 
