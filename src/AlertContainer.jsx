@@ -12,50 +12,58 @@ const DEFAULT_DURATION = 2000;
 const AlertItem = ({ alert, onRemove }) => {
   const duration = alert.duration || DEFAULT_DURATION;
   const createdAt = alert.createdAt || Date.now();
-  const initialElapsed = Date.now() - createdAt;
-  const initialProgress = Math.max(0, Math.min(100, 100 - (initialElapsed / duration) * 100));
   
-  const [progress, setProgress] = useState(initialProgress);
+  const [progress, setProgress] = useState(100);
   const [isVisible, setIsVisible] = useState(false);
   const startTimeRef = useRef(null);
-  const animationFrameRef = useRef(null);
+  const intervalRef = useRef(null);
   const timeoutRef = useRef(null);
   const isRemovingRef = useRef(false);
 
   useEffect(() => {
     setIsVisible(true);
-
+    isRemovingRef.current = false;
+    
+    // Calculate initial progress based on elapsed time
+    const now = Date.now();
+    const initialElapsed = Math.max(0, now - createdAt);
+    const initialProgress = Math.max(0, Math.min(100, 100 - (initialElapsed / duration) * 100));
+    
+    setProgress(initialProgress);
     startTimeRef.current = createdAt;
 
-    const updateProgress = () => {
+    // Update progress every 16ms (~60fps) for smooth animation
+    intervalRef.current = setInterval(() => {
       if (isRemovingRef.current) return;
       
-      const now = Date.now();
-      const elapsed = now - startTimeRef.current;
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTimeRef.current;
       const remaining = Math.max(0, 100 - (elapsed / duration) * 100);
+      
       setProgress(remaining);
 
-      if (remaining > 0) {
-        animationFrameRef.current = requestAnimationFrame(updateProgress);
-      } else {
+      if (remaining <= 0) {
         isRemovingRef.current = true;
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
         setIsVisible(false);
         timeoutRef.current = setTimeout(() => {
           onRemove(alert.id);
         }, 300);
       }
-    };
-    animationFrameRef.current = requestAnimationFrame(updateProgress);
+    }, 16); // ~60fps
 
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [alert.id, alert.duration, alert.createdAt, onRemove]);
+  }, [alert.id, duration, createdAt, onRemove]);
 
   return (
     <div
@@ -72,8 +80,7 @@ const AlertItem = ({ alert, onRemove }) => {
         <div
           style={{
             ...styles.progressBar,
-            width: `${progress}%`,
-            transition: "width 0.1s linear"
+            width: `${progress}%`
           }}
         />
       </div>
@@ -111,15 +118,16 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "10px",
-    pointerEvents: "none"
+    pointerEvents: "none",
   },
   alertBox: {
     padding: "12px 16px",
     color: "#fff",
+    fontWeight: "700",
     borderRadius: "6px",
     boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
     minWidth: "250px",
-    fontSize: "14px",
+    fontSize: "18px",
     pointerEvents: "auto",
     position: "relative",
     overflow: "hidden"
@@ -139,8 +147,7 @@ const styles = {
   },
   progressBar: {
     height: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    transition: "width 0.1s linear"
+    backgroundColor: "rgba(255, 255, 255, 0.8)"
   }
 };
 
