@@ -6,19 +6,19 @@ A lightweight, zero-dependency React notification/alert library with a simple AP
 
 ## ✨ Features
 
-- 🎯 **Simple API**: `alert.success()`, `alert.error()`, `alert.warning()`
-- ⏱️ **Auto-dismiss**: Alerts automatically disappear after 2 seconds
-- ⚡ **Instant appearance**: Alerts appear immediately with optimized timing
-- 🌐 **Global alerts**: Works anywhere in your app after setup
-- 🪶 **Lightweight**: No external dependencies (only React)
-- 📦 **TypeScript support**: Includes TypeScript definitions
-- 🎨 **Clean design**: Modern, minimal UI with smooth slide-in/out animations
-- 🔧 **Easy integration**: Just add one component to your root
-- 🔄 **FIFO removal**: Alerts remove one by one in first-in-first-out order
+- **Simple API**: `alert.success()`, `alert.error()`, `alert.warning()`
+- **Auto-dismiss**: Alerts automatically disappear after 2 seconds
+- **Instant appearance**: Alerts appear immediately with optimized timing
+- **Global alerts**: Works anywhere in your app after setup
+- **Lightweight**: No external dependencies (only React)
+- **TypeScript support**: Includes TypeScript definitions
+- **Clean design**: Modern, minimal UI with smooth slide-in/out animations
+- **Easy integration**: Just add one component to your root
+- **FIFO removal**: Alerts remove one by one in first-in-first-out order
 
 ---
 
-## 📦 Installation
+## Installation
 
 Install the package using npm or yarn:
 
@@ -34,7 +34,7 @@ yarn add react-alertify-mini
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Step 1: Add AlertContainer to your root component
 
@@ -108,7 +108,7 @@ function MyComponent() {
 
 ---
 
-## 📖 Usage Examples
+## Usage Examples
 
 ### Basic Usage
 
@@ -178,7 +178,7 @@ function LoginForm() {
 
 ---
 
-## 📚 API Reference
+## API Reference
 
 ### `alert.success(message: string)`
 
@@ -217,7 +217,7 @@ import { AlertContainer } from "react-alertify-mini";
 
 ---
 
-## 🎨 Alert Appearance
+## Alert Appearance
 
 - **Position**: Top-right corner of the screen
 - **Auto-dismiss**: 2 seconds after appearing (configurable)
@@ -233,7 +233,7 @@ import { AlertContainer } from "react-alertify-mini";
 
 ---
 
-## 📁 Package Structure
+## Package Structure
 
 ```
 src/
@@ -245,7 +245,7 @@ src/
 
 ---
 
-## 🔧 TypeScript Support
+## TypeScript Support
 
 This package includes TypeScript definitions. If you're using TypeScript, you'll get full type support:
 
@@ -259,7 +259,7 @@ alert.error(123); // ❌ Type error: expects string
 
 ---
 
-## ⚙️ Requirements
+## Requirements
 
 - **React**: >= 17.0.0
 - **React DOM**: >= 17.0.0
@@ -268,7 +268,7 @@ These are peer dependencies, so make sure you have them installed in your projec
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! If you'd like to contribute:
 
@@ -294,7 +294,7 @@ MIT License © 2025 Sapnendra Jaiswal
 
 ---
 
-## 💡 Tips
+## Tips
 
 - Only add `<AlertContainer />` once at your app root
 - Alerts automatically stack if multiple are triggered quickly
