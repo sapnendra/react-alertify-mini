@@ -280,7 +280,7 @@ Contributions are welcome! If you'd like to contribute:
 
 ---
 
-## 📝 License
+## License
 
 MIT License © 2025 Sapnendra Jaiswal
 
@@ -289,7 +289,7 @@ MIT License © 2025 Sapnendra Jaiswal
 ## 🔗 Links
 
 - **Repository**: [https://github.com/sapnendra/react-alertify-mini](https://github.com/sapnendra/react-alertify-mini)
-- **Issues**: [https://github.com/sapnendra/react-alertify/issues](https://github.com/sapnendra/react-alertify/issues)
+- **Issues**: [https://github.com/sapnendra/react-alertify/issues](https://github.com/sapnendra/react-alertify-mini/issues)
 - **NPM Package**: [react-alertify-mini](https://www.npmjs.com/package/react-alertify-mini)
 
 ---
